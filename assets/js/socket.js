@@ -1,12 +1,12 @@
 import { Socket } from "phoenix";
 import { v4 as uuidv4 } from "uuid";
 
-const userId = uuidv4();
+export const userId = uuidv4();
 const socket = new Socket("/socket", { params: { userId } });
 
 socket.connect();
 
-const publicChannel = socket.channel("lobby");
+export const publicChannel = socket.channel("lobby");
 
 publicChannel
   .join()
