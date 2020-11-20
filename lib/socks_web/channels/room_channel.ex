@@ -1,6 +1,8 @@
 defmodule SocksWeb.RoomChannel do
   use Phoenix.Channel
 
+  intercept ["private_message"]
+
   @doc """
   This is the public topic, everyone can read messages here
   """
@@ -23,6 +25,12 @@ defmodule SocksWeb.RoomChannel do
   # this handles the message on the public channel, but redirects it to the
   # private channel for the recipient
   @impl true
+  def handle_in("send_private_message_on_public_channel", payload, socket) do
+    broadcast(socket, "private_message", payload)
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_in("send_public_message", %{"message" => message}, socket) do
     broadcast(socket, "message", %{"message" => message})
     {:noreply, socket}
@@ -37,6 +45,15 @@ defmodule SocksWeb.RoomChannel do
         socket
       ) do
     SocksWeb.Endpoint.broadcast!("private:#{recipient_id}", "message", %{"message" => message})
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_out("private_message", payload, socket) do
+    if payload["recipientId"] == socket.assigns.user_id do
+      push(socket, "private_message", %{"message" => payload["message"]})
+    end
+
     {:noreply, socket}
   end
 

@@ -13,8 +13,15 @@ document.querySelector("button#broadcast-public").addEventListener("click", () =
   publicChannel.push("send_public_message", { message });
 });
 
+document.querySelector("button#broadcast-public-relay").addEventListener("click", () => {
+  const message = document.querySelector("input[name='message-text']").value;
+  const recipientId = document.querySelector("input[name='recipient-user-id']").value;
+  publicChannel.push("send_private_message_on_public_channel", { recipientId, message });
+});
+
 document.querySelector("button#broadcast-private").addEventListener("click", () => {
   const message = document.querySelector("input[name='message-text']").value;
   const recipientId = document.querySelector("input[name='recipient-user-id']").value;
   publicChannel.push("send_private_message", { recipientId, message });
 });
+

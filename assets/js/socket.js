@@ -19,7 +19,13 @@ publicChannel
 
 publicChannel.on("message", (message) => {
   const el = document.createElement("p");
-  el.textContent = `got publicChannel message: ${JSON.stringify(message)}`;
+  el.textContent = `got public message on public channel: ${JSON.stringify(message)}`;
+  document.getElementById("socket-messages").appendChild(el);
+});
+
+publicChannel.on("private_message", (message) => {
+  const el = document.createElement("p");
+  el.textContent = `got private message on public channel: ${JSON.stringify(message)}`;
   document.getElementById("socket-messages").appendChild(el);
 });
 
@@ -35,7 +41,7 @@ privateChannel
 
 privateChannel.on("message", (message) => {
   const el = document.createElement("p");
-  el.textContent = `got private message: ${JSON.stringify(message)}`;
+  el.textContent = `got private message on private channel: ${JSON.stringify(message)}`;
   document.getElementById("socket-messages").appendChild(el);
 });
 

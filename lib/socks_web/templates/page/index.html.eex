@@ -5,7 +5,8 @@ Send message to another user:
 <input type="text" name="recipient-user-id" placeholder="recipient user id" />
 <input type="text" name="message-text" placeholder="type your message" />
 <button type="button" id="broadcast-public">Send Public</button>
-<button type="button" id="broadcast-private">Send Private</button>
+<button type="button" id="broadcast-public-relay">Send Private (public channel)</button>
+<button type="button" id="broadcast-private">Send Private (private channel)</button>
 
 <p>Socket Messages Go Here:</p>
 <div id="socket-messages"></div>
